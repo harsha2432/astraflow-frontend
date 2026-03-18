@@ -1,1 +1,86 @@
-<p>birth-chart works!</p>
+<div style="max-width: 600px; margin: 40px auto; padding: 0 16px;">
+
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>✨ Your Cosmic Blueprint</mat-card-title>
+      <mat-card-subtitle>Enter your astrological profile</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content style="margin-top: 20px;">
+
+      <mat-form-field appearance="outline" style="width: 100%; margin-bottom: 12px;">
+        <mat-label>Your Name</mat-label>
+        <input matInput [(ngModel)]="birthData.userName" placeholder="Enter your name">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" style="width: 100%; margin-bottom: 12px;">
+        <mat-label>Sun Sign</mat-label>
+        <mat-select [(ngModel)]="birthData.sunSign">
+          <mat-option *ngFor="let sign of zodiacSigns" [value]="sign">
+            {{ sign }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" style="width: 100%; margin-bottom: 12px;">
+        <mat-label>Moon Sign</mat-label>
+        <mat-select [(ngModel)]="birthData.moonSign">
+          <mat-option *ngFor="let sign of zodiacSigns" [value]="sign">
+            {{ sign }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" style="width: 100%; margin-bottom: 12px;">
+        <mat-label>Rising Sign</mat-label>
+        <mat-select [(ngModel)]="birthData.risingSign">
+          <mat-option *ngFor="let sign of zodiacSigns" [value]="sign">
+            {{ sign }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" style="width: 100%; margin-bottom: 12px;">
+        <mat-label>Dominant Planet</mat-label>
+        <input matInput [(ngModel)]="birthData.dominantPlanet"
+               placeholder="e.g. Pluto, Venus, Mars">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" style="width: 100%; margin-bottom: 12px;">
+        <mat-label>Signature Aspect</mat-label>
+        <input matInput [(ngModel)]="birthData.signatureAspect"
+               placeholder="e.g. Venus Trine Jupiter">
+      </mat-form-field>
+
+      <div *ngIf="error" style="color: red; margin: 8px 0; font-size: 14px;">
+        ⚠️ {{ error }}
+      </div>
+
+    </mat-card-content>
+
+    <mat-card-actions style="padding: 16px;">
+      <button mat-raised-button color="primary"
+              (click)="onSubmit()"
+              [disabled]="loading || !isFormValid()"
+              style="width: 100%; padding: 12px;">
+        <mat-spinner *ngIf="loading" diameter="20"
+                     style="display: inline-block; margin-right: 8px;">
+        </mat-spinner>
+        {{ loading ? 'Generating your reading...' : '🌟 Reveal My Cosmic Blueprint' }}
+      </button>
+    </mat-card-actions>
+  </mat-card>
+
+  <!-- Result Card -->
+  <mat-card *ngIf="result" style="margin-top: 24px;">
+    <mat-card-header>
+      <mat-card-title>🌙 Your Reading</mat-card-title>
+    </mat-card-header>
+    <mat-card-content style="margin-top: 16px;">
+      <p style="line-height: 1.8; white-space: pre-line; font-size: 15px;">
+        {{ result }}
+      </p>
+    </mat-card-content>
+  </mat-card>
+
+</div>
