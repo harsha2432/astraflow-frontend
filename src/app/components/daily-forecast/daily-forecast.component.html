@@ -1,1 +1,122 @@
-<p>daily-forecast works!</p>
+<div style="max-width: 640px; margin: 40px auto; padding: 0 16px;">
+
+  <!-- Date header -->
+  <div style="text-align: center; margin-bottom: 24px;">
+    <h1 style="font-size: 28px; margin: 0;">🌅 Daily Forecast</h1>
+    <p style="color: #666; margin-top: 6px;">{{ today }}</p>
+  </div>
+
+  <!-- Input card -->
+  <mat-card style="margin-bottom: 24px;">
+    <mat-card-header>
+      <mat-card-title>Your Details</mat-card-title>
+      <mat-card-subtitle>
+        Enter your info to get today's forecast
+      </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content style="margin-top: 16px;">
+
+      <mat-form-field appearance="outline"
+                      style="width: 100%; margin-bottom: 12px;">
+        <mat-label>Your Name</mat-label>
+        <input matInput [(ngModel)]="userName"
+               placeholder="Enter your name">
+      </mat-form-field>
+
+      <div style="display: grid;
+                  grid-template-columns: 1fr 1fr;
+                  gap: 12px;">
+
+        <mat-form-field appearance="outline">
+          <mat-label>Sun Sign</mat-label>
+          <mat-select [(ngModel)]="sunSign">
+            <mat-option *ngFor="let sign of zodiacSigns" [value]="sign">
+              {{ sign }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Moon Sign</mat-label>
+          <mat-select [(ngModel)]="moonSign">
+            <mat-option *ngFor="let sign of zodiacSigns" [value]="sign">
+              {{ sign }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      </div>
+
+      <div *ngIf="error"
+           style="color: red; font-size: 13px; margin-top: 8px;">
+        ⚠️ {{ error }}
+      </div>
+
+    </mat-card-content>
+
+    <mat-card-actions style="padding: 16px;">
+      <button mat-raised-button color="primary"
+              (click)="getForecast()"
+              [disabled]="loading || !isFormValid()"
+              style="width: 100%; padding: 12px;">
+        <mat-spinner *ngIf="loading" diameter="20"
+                     style="display: inline-block; margin-right: 8px;">
+        </mat-spinner>
+        {{ loading ? 'Reading the stars...' : '🌟 Get My Daily Forecast' }}
+      </button>
+    </mat-card-actions>
+  </mat-card>
+
+  <!-- Forecast result card -->
+  <mat-card *ngIf="forecast">
+    <mat-card-header>
+      <mat-card-title>
+        🌙 {{ userName }}'s Forecast for Today
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content style="margin-top: 16px;">
+
+      <!-- Display each line as its own section -->
+      <div *ngFor="let line of getForecastSections()"
+           style="margin-bottom: 12px;">
+
+        <!-- Emoji header lines get special styling -->
+        <p *ngIf="line.startsWith('🌟') ||
+                  line.startsWith('📍') ||
+                  line.startsWith('⚡') ||
+                  line.startsWith('💡') ||
+                  line.startsWith('⚠️') ||
+                  line.startsWith('✨') ||
+                  line.startsWith('🌙')"
+           style="font-weight: bold;
+                  font-size: 15px;
+                  margin: 0;
+                  padding: 8px 12px;
+                  background: #f5f5f5;
+                  border-radius: 8px;
+                  line-height: 1.6;">
+          {{ line }}
+        </p>
+
+        <!-- Regular lines -->
+        <p *ngIf="!line.startsWith('🌟') &&
+                  !line.startsWith('📍') &&
+                  !line.startsWith('⚡') &&
+                  !line.startsWith('💡') &&
+                  !line.startsWith('⚠️') &&
+                  !line.startsWith('✨') &&
+                  !line.startsWith('🌙')"
+           style="font-size: 14px;
+                  color: #444;
+                  margin: 4px 0 0 12px;
+                  line-height: 1.6;">
+          {{ line }}
+        </p>
+
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+</div>
