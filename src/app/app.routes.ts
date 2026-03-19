@@ -1,8 +1,15 @@
 import { Routes } from '@angular/router';
-import { BirthChartComponent } from './components/birth-chart/birth-chart.component';
+import { LoginComponent } from './pages/login/login.component';
+import { SignupComponent } from './pages/signup/signup.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { BirthChartComponent }
+  from './components/birth-chart/birth-chart.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/chart', pathMatch: 'full' },
-  { path: 'chart', component: BirthChartComponent },
-  { path: '**', redirectTo: '/chart' }
+  { path: '',          redirectTo: '/login', pathMatch: 'full' },
+  { path: 'login',     component: LoginComponent },
+  { path: 'signup',    component: SignupComponent },
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'chart',     component: BirthChartComponent },
+  { path: '**',        redirectTo: '/login' }
 ];

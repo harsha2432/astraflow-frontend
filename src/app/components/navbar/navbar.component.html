@@ -1,0 +1,23 @@
+<mat-toolbar color="primary">
+
+  <span style="font-size: 20px; font-weight: bold; cursor: pointer;"
+        (click)="goToDashboard()">
+    ✨ AstraFlow
+  </span>
+
+  <span style="flex: 1;"></span>
+
+  <button mat-button (click)="goToChart()">
+    🪐 My Chart
+  </button>
+
+  <button mat-button (click)="goToDashboard()">
+    🏠 Dashboard
+  </button>
+
+  <button mat-raised-button (click)="goToLogin()"
+          style="margin-left: 8px;">
+    Login
+  </button>
+
+</mat-toolbar>

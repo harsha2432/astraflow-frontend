@@ -1,1 +1,88 @@
-<p>dashboard works!</p>
+<div style="max-width: 800px; margin: 40px auto; padding: 0 16px;">
+
+  <!-- Welcome header -->
+  <div style="text-align: center; margin-bottom: 32px;">
+    <h1 style="font-size: 32px; margin: 0;">
+      Welcome, {{ userName }} 🌟
+    </h1>
+    <p style="color: #666; margin-top: 8px;">
+      Your cosmic dashboard
+    </p>
+  </div>
+
+  <!-- Sign summary cards -->
+  <div style="display: grid;
+              grid-template-columns: repeat(3, 1fr);
+              gap: 16px;
+              margin-bottom: 24px;">
+
+    <mat-card style="text-align: center;">
+      <mat-card-content style="padding: 20px;">
+        <div style="font-size: 32px;">☀️</div>
+        <div style="font-size: 12px; color: #666; margin-top: 4px;">
+          Sun Sign
+        </div>
+        <div style="font-size: 20px; font-weight: bold; margin-top: 4px;">
+          {{ sunSign }}
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card style="text-align: center;">
+      <mat-card-content style="padding: 20px;">
+        <div style="font-size: 32px;">🌙</div>
+        <div style="font-size: 12px; color: #666; margin-top: 4px;">
+          Moon Sign
+        </div>
+        <div style="font-size: 20px; font-weight: bold; margin-top: 4px;">
+          {{ moonSign }}
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card style="text-align: center;">
+      <mat-card-content style="padding: 20px;">
+        <div style="font-size: 32px;">⬆️</div>
+        <div style="font-size: 12px; color: #666; margin-top: 4px;">
+          Rising Sign
+        </div>
+        <div style="font-size: 20px; font-weight: bold; margin-top: 4px;">
+          {{ risingSign }}
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+  </div>
+
+  <!-- Today's forecast -->
+  <mat-card style="margin-bottom: 24px;">
+    <mat-card-header>
+      <mat-card-title>🌅 Today's Forecast</mat-card-title>
+    </mat-card-header>
+    <mat-card-content style="margin-top: 12px;">
+      <p style="line-height: 1.8; font-size: 15px;">
+        {{ todayForecast }}
+      </p>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Quick action buttons -->
+  <div style="display: grid;
+              grid-template-columns: 1fr 1fr;
+              gap: 16px;">
+
+    <button mat-raised-button color="primary"
+            (click)="goToChart()"
+            style="padding: 16px; font-size: 16px;">
+      🪐 Generate My Chart
+    </button>
+
+    <button mat-raised-button color="accent"
+            (click)="goToForecast()"
+            style="padding: 16px; font-size: 16px;">
+      📅 Daily Forecast
+    </button>
+
+  </div>
+
+</div>

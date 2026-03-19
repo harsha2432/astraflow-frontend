@@ -1,1 +1,64 @@
-<p>signup works!</p>
+<div style="max-width: 420px; margin: 80px auto; padding: 0 16px;">
+
+  <mat-card>
+    <mat-card-header style="justify-content: center; padding: 24px 0 8px;">
+      <div style="text-align: center; width: 100%;">
+        <div style="font-size: 48px;">🌟</div>
+        <mat-card-title style="font-size: 24px; margin-top: 8px;">
+          Create Account
+        </mat-card-title>
+        <mat-card-subtitle>
+          Start your cosmic journey today
+        </mat-card-subtitle>
+      </div>
+    </mat-card-header>
+
+    <mat-card-content style="margin-top: 16px;">
+
+      <mat-form-field appearance="outline"
+                      style="width: 100%; margin-bottom: 12px;">
+        <mat-label>Full Name</mat-label>
+        <input matInput [(ngModel)]="name"
+               placeholder="Your name">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline"
+                      style="width: 100%; margin-bottom: 12px;">
+        <mat-label>Email</mat-label>
+        <input matInput type="email"
+               [(ngModel)]="email"
+               placeholder="you@email.com">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" style="width: 100%;">
+        <mat-label>Password</mat-label>
+        <input matInput type="password"
+               [(ngModel)]="password"
+               placeholder="Create a password">
+      </mat-form-field>
+
+      <div *ngIf="error"
+           style="color: red; font-size: 13px; margin-top: 8px;">
+        ⚠️ {{ error }}
+      </div>
+
+    </mat-card-content>
+
+    <mat-card-actions style="padding: 16px; display: flex; flex-direction: column; gap: 10px;">
+
+      <button mat-raised-button color="primary"
+              (click)="onSignup()"
+              style="width: 100%; padding: 10px;">
+        Create Account
+      </button>
+
+      <button mat-stroked-button
+              (click)="goToLogin()"
+              style="width: 100%;">
+        Already have an account? Sign In
+      </button>
+
+    </mat-card-actions>
+  </mat-card>
+
+</div>
