@@ -1,28 +1,20 @@
-<mat-toolbar color="primary">
+<nav class="navbar">
+  <div class="navbar-brand">
+    🌙 AstraFlow
+  </div>
 
-  <span style="font-size: 20px; font-weight: bold; cursor: pointer;"
-        (click)="goTo('dashboard')">
-    ✨ AstraFlow
-  </span>
+  <div class="navbar-links">
+    <!-- Show when logged in -->
+    <ng-container *ngIf="authService.isLoggedIn()">
+      <a routerLink="/dashboard">Dashboard</a>
+      <span class="email">{{ authService.getUserEmail() }}</span>
+      <button (click)="logout()" class="btn-logout">Logout</button>
+    </ng-container>
 
-  <span style="flex: 1;"></span>
-
-  <button mat-button (click)="goTo('dashboard')">
-    🏠 Dashboard
-  </button>
-
-  <button mat-button (click)="goTo('chart')">
-    🪐 My Chart
-  </button>
-
-  <button mat-button (click)="goTo('forecast')">
-    🌅 Daily Forecast
-  </button>
-
-  <button mat-raised-button
-          (click)="goTo('login')"
-          style="margin-left: 8px;">
-    Login
-  </button>
-
-</mat-toolbar>
+    <!-- Show when NOT logged in -->
+    <ng-container *ngIf="!authService.isLoggedIn()">
+      <a routerLink="/login">Login</a>
+      <a routerLink="/register">Register</a>
+    </ng-container>
+  </div>
+</nav>

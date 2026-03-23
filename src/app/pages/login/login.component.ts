@@ -1,44 +1,41 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
-import { MatCardModule } from '@angular/material/card';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    RouterModule,
-    MatCardModule,
-    MatInputModule,
-    MatButtonModule
-  ],
+  imports: [FormsModule, CommonModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
 
   email = '';
   password = '';
-  error = '';
+  errorMessage = '';
+  loading = false;
 
-  constructor(private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
-  onLogin() {
-    // Temporary — just navigate to chart for now
-    // Real JWT login comes in Day 8
-    if (this.email && this.password) {
-      this.router.navigate(['/chart']);
-    } else {
-      this.error = 'Please enter email and password';
-    }
-  }
+  onLogin(): void {
+    this.loading = true;
+    this.errorMessage = '';
 
-  goToSignup() {
-    this.router.navigate(['/signup']);
+    this.authService.login(this.email, this.password).subscribe({
+      next: (response) => {
+        console.log('Login success:', response);
+        this.router.navigate(['/dashboard']);
+      },
+      error: (err) => {
+        this.errorMessage = err.error?.message || 'Login failed';
+        this.loading = false;
+      }
+    });
   }
 }

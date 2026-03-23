@@ -1,42 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
-import { MatGridListModule } from '@angular/material/grid-list';
+import { AuthService } from '../../services/auth.service';
+import { NavbarComponent } from '../../components/navbar/navbar.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [
-    CommonModule,
-    MatCardModule,
-    MatButtonModule,
-    MatGridListModule
-  ],
+  imports: [CommonModule, NavbarComponent],
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.css'
+  styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
 
-  // This will come from the API in Day 12
-  // For now using sample data
-  userName = 'Cosmic Explorer';
-  sunSign = 'Scorpio';
-  moonSign = 'Pisces';
-  risingSign = 'Libra';
+  userEmail: string = '';
+  userId: number | null = null;
 
-  todayForecast = 'The cosmos are aligned in your favour today. ' +
-    'Your intuition is especially sharp — trust it. ' +
-    'A meaningful connection may surprise you. 🌙';
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
-  constructor(private router: Router) {}
+  ngOnInit(): void {
+    // Get logged-in user info
+    this.userEmail = this.authService.getUserEmail() || '';
+    this.userId = this.authService.getUserId();
 
-  goToChart() {
-    this.router.navigate(['/chart']);
-  }
-
-  goToForecast() {
-    this.router.navigate(['/forecast']);
+    console.log('Dashboard loaded for:', this.userEmail);
   }
 }

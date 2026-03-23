@@ -1,21 +1,38 @@
 import { Routes } from '@angular/router';
-import { LoginComponent }
-  from './pages/login/login.component';
-import { SignupComponent }
-  from './pages/signup/signup.component';
-import { DashboardComponent }
-  from './pages/dashboard/dashboard.component';
-import { BirthChartComponent }
-  from './components/birth-chart/birth-chart.component';
-import { DailyForecastComponent }
-  from './components/daily-forecast/daily-forecast.component';
+import { LoginComponent } from './pages/login/login.component';
+import { RegisterComponent } from './pages/register/register.component';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
-  { path: '',         redirectTo: '/login', pathMatch: 'full' },
-  { path: 'login',    component: LoginComponent },
-  { path: 'signup',   component: SignupComponent },
-  { path: 'dashboard',component: DashboardComponent },
-  { path: 'chart',    component: BirthChartComponent },
-  { path: 'forecast', component: DailyForecastComponent },
-  { path: '**',       redirectTo: '/login' }
+  // Default → login
+  { 
+    path: '', 
+    redirectTo: '/login', 
+    pathMatch: 'full' 
+  },
+
+  // Public routes
+  { 
+    path: 'login', 
+    component: LoginComponent 
+  },
+  { 
+    path: 'register', 
+    component: RegisterComponent 
+  },
+
+  // 🔒 Protected routes
+  {
+    path: 'dashboard',
+    loadComponent: () =>
+      import('./pages/dashboard/dashboard.component')
+        .then(m => m.DashboardComponent),
+    canActivate: [authGuard]   // ← Guard applied here
+  },
+
+  // Wildcard → redirect to login
+  { 
+    path: '**', 
+    redirectTo: '/login' 
+  }
 ];
